@@ -82,13 +82,18 @@ object RecursionExercises1 {
   // Maximum of the empty list is 0
   def maximum(x: List[Int]): Int = x match {
     case Nil => 0
-    case head :: tail => if (head > maximum(tail)) head else maximum(tail)
+    case head :: tail => val max = maximum(tail); if (head > max) head else max
   }
 
   // Reverse a list
-  def reverse[A](x: List[A]): List[A] = x match {
-    case Nil => Nil
-    case head :: tail => append(reverse(tail), List(head))
+  def reverse[A](x: List[A]): List[A] = {
+
+    def innerReverse[A](x: List[A], y: List[A]): List[A]= x match {
+      case Nil => y
+      case head :: tail => innerReverse(tail, head :: y)
+    }
+
+    innerReverse(x, Nil)
   }
 
 
